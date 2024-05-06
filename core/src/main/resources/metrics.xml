@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="registry" class="cn.fraudmetrix.metrics.Registry"/>
+
+    <!-- influxdb的client,用于往influxdb发送数据，配置来自于shutter，app=influxdb，file=influxdb.properties-->
+    <bean id="influxDB" class="org.influxdb.InfluxDBFactory" factory-method="connect">
+        <constructor-arg index="0" value="${influxdb.url}"/>
+        <constructor-arg index="1" value="user"/>
+        <constructor-arg index="2" value="pass"/>
+    </bean>
+
+    <!-- 负责将metrics数据汇报给influxdb-->
+    <bean id="influxDBReporter" class="cn.fraudmetrix.metrics.reporter.InfluxDBReporter">
+        <property name="influxDB" ref="influxDB"/>
+        <!--和应用名保持一致-->
+        <property name="database" value="appdemo"/>
+        <property name="tagProviders">
+            <list>
+                <ref bean="serverInfoProvider"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 将metrics数据打印在控制台-->
+    <bean id="consoleReporter" class="cn.fraudmetrix.metrics.reporter.ConsoleReporter"/>
+
+    <!-- 从registry中读取数据,然后转交给具体的report进行汇报,线下可开启consoleReporter，生产环境要删掉consoleReporter-->
+    <bean class="cn.fraudmetrix.metrics.RegistryReporter" init-method="init">
+        <property name="registry" ref="registry"/>
+        <property name="reportIntervalMillis" value="10000"/><!--上报频率10ms，不建议更改-->
+        <property name="isEnable" value="true"/><!--true为开启，把指标上报到influxdb-->
+        <property name="reporters">
+            <list>
+                <ref bean="influxDBReporter"/>
+                <!--                <ref bean="consoleReporter"/>-->
+            </list>
+        </property>
+    </bean>
+
+    <bean class="cn.fraudmetrix.metrics.ServerInfoProvider" id="serverInfoProvider">
+    </bean>
+</beans>

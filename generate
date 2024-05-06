@@ -1,0 +1,34 @@
+#!/bin/sh
+
+if [ "$1" == "" ]; then
+    echo "app name must not be empty\n"
+    echo "usage:"
+    echo "\tsh generate APPNAME"
+    exit
+fi
+
+PKGNAME=`echo $1 | sed "s/-/./g"`
+PKGDIR=`echo $1 | sed "s/-/\//g"`
+
+git clone git@github.com:Waein/appdemo.git
+mv appdemo $1
+
+echo "now generating new project withe name $1"
+rm -fr ./$1/.git
+rm -fr ./$1/core/src/main/resources/special
+mkdir -p ./$1/client/src/main/java/cn/byb/$PKGDIR
+mkdir -p ./$1/core/src/main/java/cn/byb/$PKGDIR
+mv -v ./$1/client/src/main/java/cn/byb/appdemo/* ./$1/client/src/main/java/cn/byb/$PKGDIR
+mv -v ./$1/core/src/main/java/cn/byb/appdemo/* ./$1/core/src/main/java/cn/byb/$PKGDIR
+
+rm -fr ./$1/core/src/main/java/cn/byb/appdemo
+rm -fr ./$1/client/src/main/java/cn/byb/appdemo
+
+find ./$1 -type f -name "*.java" -exec sed -i '' "s/appdemo/$PKGNAME/g" {} \;
+find ./$1 -type f -name "*.properties" -exec sed -i '' "s/appdemo/$1/g" {} \;
+find ./$1 -type f -name "app.xml" -exec sed -i '' "s/appdemo/$PKGNAME/g" {} \;
+find ./$1 -type f -name "pom.xml" -exec sed -i '' "s/appdemo/$1/g" {} \;
+find ./$1 -type f -name "assembly.xml" -exec sed -i '' "s/appdemo/$1/g" {} \;
+
+echo "all done! enjoy"
+
