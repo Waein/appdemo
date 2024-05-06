@@ -134,7 +134,7 @@ public class AppMain implements ApplicationContextAware {
     }
 
     public static void main(String[] args) throws Exception {
-        log.warn("appdemo started 😘");
+        log.info("appdemo started 😘");
         try {
             SpringApplication.run(AppMain.class, args);
         } catch (Throwable e) {

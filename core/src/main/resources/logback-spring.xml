@@ -2,6 +2,9 @@
 <configuration>
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
 
+    <property name="LOG_PATH" value="../logs/info" />
+    <property name="ERROR_FORMAT_LOGGING_PATH" value="../logs/error" />
+
     <!-- 控制台输出 -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -68,29 +71,18 @@
         </triggeringPolicy>
     </appender>
 
-    <appender name="GRAYLOG" class="cn.fraudmetrix.graylog.logback.GraylogAppender">
-        <!-- 默认开启 -->
-        <enabled>true</enabled>
-        <graylogHost>${GRAYLOG_HOST}</graylogHost>
-        <graylogPort>${GRAYLOG_PORT}</graylogPort>
-        <levelIncluded>true</levelIncluded>
-        <loggerIncluded>true</loggerIncluded>
-        <additionalField>app=${APPNAME}</additionalField>
-        <additionalField>file=app.log</additionalField>
-        <additionalField>env=${ENV}</additionalField>
-        <additionalField>cluster=${CLUSTER}</additionalField>
-    </appender>
-
-    <!--异常日志标准格式-->
-    <conversionRule conversionWord="logbackErrorLogConvert"
-                    converterClass="cn.fraudmetrix.graylog.logback.standard.errorlog.LogbackThrowableLogConvert"/>
+    <!-- 生成日志文件 -->
     <appender name="ERROR_MONITOR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>ERROR</level>
         </filter>
+
+        <!-- 日志格式 -->
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>%logbackErrorLogConvert</pattern>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
         </encoder>
+
+        <!--日志文件输出的文件名 -->
         <file>${ERROR_FORMAT_LOGGING_PATH}/error.monitor.log</file>
 
         <!-- 固定数量的日志文件，防止将磁盘占满 -->
@@ -107,11 +99,9 @@
         </triggeringPolicy>
     </appender>
 
-
     <root>
         <appender-ref ref="FILE"/>
         <appender-ref ref="ERROR_FILE"/>
-        <appender-ref ref="GRAYLOG"/>
         <appender-ref ref="ERROR_MONITOR_FILE"/>
     </root>
 
