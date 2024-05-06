@@ -13,6 +13,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.0.0.RELEASE</version>
+        <relativePath/>
     </parent>
 
     <properties>
@@ -49,16 +50,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <dependency>
-            <groupId>cn.fraudmetrix</groupId>
-            <artifactId>module-metrics</artifactId>
-            <version>2.1.8</version>
-        </dependency>
-        <dependency>
-            <groupId>cn.fraudmetrix</groupId>
-            <artifactId>module-metrics-serverinfo</artifactId>
-            <version>2.1.11</version>
-        </dependency>
+
         <dependency>
             <groupId>org.apache.zookeeper</groupId>
             <artifactId>zookeeper</artifactId>
@@ -72,24 +64,9 @@
         </dependency>
 
         <dependency>
-            <groupId>cn.tongdun.config</groupId>
-            <artifactId>shutter-spring-boot-starter</artifactId>
-            <version>${config-client-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>cn.tongdun</groupId>
-            <artifactId>common-arch</artifactId>
-            <version>${common-arch-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>cn.tongdun.client</groupId>
-            <artifactId>appdemo-client</artifactId>
-            <version>${client-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>cn.fraudmetrix.cache</groupId>
-            <artifactId>jcache-provider</artifactId>
-            <version>1.0.11</version>
+            <groupId>javax.cache</groupId>
+            <artifactId>cache-api</artifactId>
+            <version>0.3</version>
         </dependency>
 
         <!-- ================================================= -->
@@ -203,10 +180,11 @@
             <version>3.3.2</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
         <dependency>
-            <groupId>cn.fraudmetrix</groupId>
-            <artifactId>graylog-logback</artifactId>
-            <version>${graylog-logback-version}</version>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
         </dependency>
 
         <dependency>
@@ -273,7 +251,7 @@
                                 <!--<configuration>-->
                                     <!--<artifactItems>-->
                                         <!--<artifactItem>-->
-                                            <!--<groupId>cn.tongdun.client</groupId>-->
+                                            <!--<groupId>cn.byb.client</groupId>-->
                                             <!--<artifactId>chevrolet-client</artifactId>-->
                                         <!--</artifactItem>-->
                                     <!--</artifactItems>-->

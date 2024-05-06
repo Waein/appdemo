@@ -1,5 +1,6 @@
 package cn.byb.appdemo;
 
+import org.apache.commons.codec.Charsets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
@@ -15,7 +16,7 @@ public class CacheUseDemo {
 
     @PostConstruct
     public void init() {
-//        redisCache.put("key", "value".getBytes(Charsets.UTF_8));
+        redisCache.put("key", "value".getBytes(Charsets.UTF_8));
     }
 
     @Cacheable(value = "spring-cache")

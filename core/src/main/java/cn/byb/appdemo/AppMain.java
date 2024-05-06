@@ -1,6 +1,6 @@
 package cn.byb.appdemo;
 
-import cn.tongdun.appdemo.util.SeqIdUtil;
+import cn.byb.appdemo.util.SeqIdUtil;
 import com.google.common.collect.Lists;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
