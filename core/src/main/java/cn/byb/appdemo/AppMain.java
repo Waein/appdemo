@@ -132,13 +132,13 @@ public class AppMain implements ApplicationContextAware {
     }
 
     public static void main(String[] args) throws Exception {
-        log.info("appdemo started 😘");
         try {
             SpringApplication.run(AppMain.class, args);
         } catch (Throwable e) {
             e.printStackTrace();
             throw e;
         }
+        log.info("appdemo started 😘");
     }
 
     @Override

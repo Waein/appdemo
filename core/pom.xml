@@ -35,7 +35,7 @@
         <log4j-version>1.2.16</log4j-version>
         <guava-version>20.0</guava-version>
         <metrics-version>3.1.0</metrics-version>
-        <dubbo-version>2.8.4</dubbo-version>
+        <dubbo-version>2.7.22</dubbo-version>
         <config-client-version>1.0.5</config-client-version>
         <client-version>1.0.0</client-version>
         <common-arch-version>1.0.3</common-arch-version>
@@ -132,20 +132,13 @@
             <artifactId>metrics-core</artifactId>
             <version>${metrics-version}</version>
         </dependency>
+        <!-- ================================================= -->
+        <!--              中间件相关依赖                           -->
+        <!-- ================================================= -->
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>dubbo</artifactId>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-spring-boot-starter</artifactId>
             <version>${dubbo-version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-pool</groupId>
-                    <artifactId>commons-pool</artifactId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.101tec</groupId>
@@ -205,6 +198,14 @@
             <artifactId>junit</artifactId>
             <version>${junit-version}</version>
             <scope>test</scope>
+        </dependency>
+        <!-- ================================================= -->
+        <!--              fp相关依赖                           -->
+        <!-- ================================================= -->
+        <dependency>
+            <groupId>cn.fraudmetrix.forseti.fp</groupId>
+            <artifactId>fp-client</artifactId>
+            <version>3.7.1</version>
         </dependency>
     </dependencies>
 
