@@ -14,11 +14,11 @@ import org.springframework.context.annotation.Configuration;
 public class FpRpcConfig {
 
     @DubboReference(
-            version = "${tiangong.fp.saas.dubbo.version}",
+            registry = {"saas"},
+            check = false,
+            version = "${dubbo.saas.version:}",
             retries = 0,
-            parameters = {"timeout", "${tiangong.fp.saas.dubbo.timeout}"},
-//            registry = {"saas"},
-            check = true)
+            parameters = {"timeout", "${dubbo.saas.timeout:}"})
     private DeviceInfoQuery deviceInfoQuery;
 
     @Bean
